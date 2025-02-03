@@ -1,0 +1,51 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: alpine
+  namespace: alpine-dr
+  labels:
+    drapp: alpine-app
+spec:
+  running: true
+  template:
+    spec:
+      architecture: amd64
+      domain:
+        cpu:
+          cores: 1
+          sockets: 1
+          threads: 1
+        devices:
+          disks:
+            - disk:
+                bus: virtio
+              name: alpine-disk
+            - disk:
+                bus: virtio
+              name: cloudinitdisk
+          interfaces:
+            - masquerade: {}
+              model: virtio
+              name: default
+          rng: {}
+        machine:
+          type: pc-q35-rhel9.4.0
+        memory:
+          guest: 128Mi
+        resources: {}
+      networks:
+        - name: default
+          pod: {}
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - persistentVolumeClaim:
+            claimName: alpine-disk
+          name: alpine-disk
+        - cloudInitConfigDrive:
+            userData: |
+              #cloud-config
+              user: alpine
+              password: redhat
+              chpasswd:
+                expire: false
+          name: cloudinitdisk
