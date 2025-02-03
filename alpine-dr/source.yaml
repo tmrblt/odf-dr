@@ -1,0 +1,11 @@
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: VolumeImportSource
+metadata:
+  name: alpine-source
+  labels:
+    drapp: alpine-app
+spec:
+  source:
+    registry:
+      url: "docker://quay.io/kubevirt/alpine-container-disk-demo:20241126_959eee0dfd"
+      pullMethod: node
