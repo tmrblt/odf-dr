@@ -1,7 +1,7 @@
 apiVersion: kubevirt.io/v1
 kind: VirtualMachine
 metadata:
-  name: alpine-storage-migration
+  name: alpine-vm
 spec:
   updateVolumesStrategy: Migration
   dataVolumeTemplates:
