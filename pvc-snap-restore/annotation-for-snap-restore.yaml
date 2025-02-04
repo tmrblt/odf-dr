@@ -1,0 +1,3 @@
+snapshot.storage.kubernetes.io/allow-volume-mode-change true
+
+Add this annotation to volumesnapshot
