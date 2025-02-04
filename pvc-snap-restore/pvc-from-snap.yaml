@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: myclaim-restore
+spec:
+  storageClassName: ocs-storagecluster-ceph-rbd-virtualization
+  dataSource:
+    name: vmsnapshot-59f25418-cb27-4075-bb3d-e04f8ce7bf38-volume-rootdisk
+    kind: VolumeSnapshot
+    apiGroup: snapshot.storage.k8s.io
+  volumeMode: Block
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 30Gi
