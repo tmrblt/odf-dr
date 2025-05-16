@@ -1,5 +1,5 @@
-
-### Create htpasswd file with admin user
+---
+* Create htpasswd file with admin user *
 htpasswd -c -B -b users.htpasswd admin redhat
 
 ### Add or update users with existing file
