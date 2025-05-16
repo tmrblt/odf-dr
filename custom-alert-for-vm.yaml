@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: vm-usage-alert
+  namespace: demo
+spec:
+  groups:
+  - name: vm-custom-alert
+    rules:
+    - alert: memory-usage-ratio
+      expr: sort_desc(avg_over_time(kubevirt_vmi_memory_used_bytes[5m]) / avg_over_time(kubevirt_vmi_memory_usable_bytes[5m]) ) > 0.001
+      annotations:
+        description: Memory used/usable ratio for VM {{ $labels.name }} in namespace {{ $labels.namespace }} is over 0.001 for 5 minutes.
+        summary: An excessive ratio of memory usge have been detected on a VM {{ $labels.name }} in the last 5 minutes.
